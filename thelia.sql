@@ -113,8 +113,8 @@ DROP TABLE IF EXISTS `product_category`;
 
 CREATE TABLE `product_category`
 (
-    `product_id` INTEGER NOT NULL AUTO_INCREMENT,
-    `category_id` INTEGER NOT NULL AUTO_INCREMENT,
+    `product_id` INTEGER NOT NULL,
+    `category_id` INTEGER NOT NULL,
     `created_at` DATETIME,
     `updated_at` DATETIME,
     PRIMARY KEY (`product_id`,`category_id`),
@@ -140,7 +140,7 @@ DROP TABLE IF EXISTS `country`;
 
 CREATE TABLE `country`
 (
-    `id` INTEGER NOT NULL AUTO_INCREMENT,
+    `id` INTEGER NOT NULL,
     `area_id` INTEGER,
     `isocode` VARCHAR(4) NOT NULL,
     `isoalpha2` VARCHAR(2),
@@ -267,7 +267,7 @@ DROP TABLE IF EXISTS `tax_rule_country`;
 
 CREATE TABLE `tax_rule_country`
 (
-    `id` INTEGER NOT NULL AUTO_INCREMENT,
+    `id` INTEGER NOT NULL,
     `tax_rule_id` INTEGER,
     `country_id` INTEGER,
     `tax_id` INTEGER,
@@ -558,9 +558,9 @@ DROP TABLE IF EXISTS `attribute_combination`;
 CREATE TABLE `attribute_combination`
 (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
-    `attribute_id` INTEGER NOT NULL AUTO_INCREMENT,
-    `combination_id` INTEGER NOT NULL AUTO_INCREMENT,
-    `attribute_av_id` INTEGER NOT NULL AUTO_INCREMENT,
+    `attribute_id` INTEGER NOT NULL,
+    `combination_id` INTEGER NOT NULL,
+    `attribute_av_id` INTEGER NOT NULL,
     `created_at` DATETIME,
     `updated_at` DATETIME,
     PRIMARY KEY (`id`,`attribute_id`,`combination_id`,`attribute_av_id`),
@@ -1260,7 +1260,7 @@ DROP TABLE IF EXISTS `module`;
 
 CREATE TABLE `module`
 (
-    `id` INTEGER NOT NULL AUTO_INCREMENT,
+    `id` INTEGER NOT NULL,
     `code` VARCHAR(55) NOT NULL,
     ` type` TINYINT NOT NULL,
     `activate` TINYINT,
@@ -1305,7 +1305,7 @@ DROP TABLE IF EXISTS `accessory`;
 
 CREATE TABLE `accessory`
 (
-    `id` INTEGER NOT NULL AUTO_INCREMENT,
+    `id` INTEGER NOT NULL,
     `product_id` INTEGER NOT NULL,
     `accessory` INTEGER NOT NULL,
     `position` INTEGER NOT NULL,
@@ -1388,7 +1388,7 @@ DROP TABLE IF EXISTS `group_desc`;
 
 CREATE TABLE `group_desc`
 (
-    `id` INTEGER NOT NULL AUTO_INCREMENT,
+    `id` INTEGER NOT NULL,
     `group_id` INTEGER NOT NULL,
     `lang` VARCHAR(10) NOT NULL,
     `title` VARCHAR(255),
@@ -1600,7 +1600,7 @@ DROP TABLE IF EXISTS `rewriting`;
 
 CREATE TABLE `rewriting`
 (
-    `id` INTEGER NOT NULL AUTO_INCREMENT,
+    `id` INTEGER NOT NULL,
     `url` VARCHAR(255) NOT NULL,
     `product_id` INTEGER,
     `category_id` INTEGER,
@@ -1756,8 +1756,8 @@ DROP TABLE IF EXISTS `content_folder`;
 
 CREATE TABLE `content_folder`
 (
-    `content_id` INTEGER NOT NULL AUTO_INCREMENT,
-    `folder_id` INTEGER NOT NULL AUTO_INCREMENT,
+    `content_id` INTEGER NOT NULL,
+    `folder_id` INTEGER NOT NULL,
     `created_at` DATETIME,
     `updated_at` DATETIME,
     PRIMARY KEY (`content_id`,`folder_id`),
