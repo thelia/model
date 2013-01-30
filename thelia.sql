@@ -18,6 +18,9 @@ CREATE TABLE `category`
     `position` INTEGER NOT NULL,
     `created_at` DATETIME,
     `updated_at` DATETIME,
+    `version` INTEGER DEFAULT 0,
+    `version_created_at` DATETIME,
+    `version_created_by` VARCHAR(100),
     PRIMARY KEY (`id`)
 ) ENGINE=InnoDB;
 
@@ -43,6 +46,9 @@ CREATE TABLE `product`
     `position` INTEGER NOT NULL,
     `created_at` DATETIME,
     `updated_at` DATETIME,
+    `version` INTEGER DEFAULT 0,
+    `version_created_at` DATETIME,
+    `version_created_by` VARCHAR(100),
     PRIMARY KEY (`id`),
     UNIQUE INDEX `ref_UNIQUE` (`ref`),
     INDEX `idx_product_tax_rule_id` (`tax_rule_id`),
@@ -567,6 +573,9 @@ CREATE TABLE `folder`
     `position` INTEGER,
     `created_at` DATETIME,
     `updated_at` DATETIME,
+    `version` INTEGER DEFAULT 0,
+    `version_created_at` DATETIME,
+    `version_created_by` VARCHAR(100),
     PRIMARY KEY (`id`)
 ) ENGINE=InnoDB;
 
@@ -583,6 +592,9 @@ CREATE TABLE `content`
     `position` INTEGER,
     `created_at` DATETIME,
     `updated_at` DATETIME,
+    `version` INTEGER DEFAULT 0,
+    `version_created_at` DATETIME,
+    `version_created_by` VARCHAR(100),
     PRIMARY KEY (`id`)
 ) ENGINE=InnoDB;
 
@@ -1119,6 +1131,9 @@ CREATE TABLE `message`
     `ref` VARCHAR(255),
     `created_at` DATETIME,
     `updated_at` DATETIME,
+    `version` INTEGER DEFAULT 0,
+    `version_created_at` DATETIME,
+    `version_created_by` VARCHAR(100),
     PRIMARY KEY (`id`)
 ) ENGINE=InnoDB;
 
@@ -1686,6 +1701,135 @@ CREATE TABLE `message_i18n`
     `description_html` LONGTEXT,
     PRIMARY KEY (`id`,`locale`),
     CONSTRAINT `message_i18n_FK_1`
+        FOREIGN KEY (`id`)
+        REFERENCES `message` (`id`)
+        ON DELETE CASCADE
+) ENGINE=InnoDB;
+
+-- ---------------------------------------------------------------------
+-- category_version
+-- ---------------------------------------------------------------------
+
+DROP TABLE IF EXISTS `category_version`;
+
+CREATE TABLE `category_version`
+(
+    `id` INTEGER NOT NULL,
+    `parent` INTEGER,
+    `link` VARCHAR(255),
+    `visible` TINYINT NOT NULL,
+    `position` INTEGER NOT NULL,
+    `created_at` DATETIME,
+    `updated_at` DATETIME,
+    `version` INTEGER DEFAULT 0 NOT NULL,
+    `version_created_at` DATETIME,
+    `version_created_by` VARCHAR(100),
+    PRIMARY KEY (`id`,`version`),
+    CONSTRAINT `category_version_FK_1`
+        FOREIGN KEY (`id`)
+        REFERENCES `category` (`id`)
+        ON DELETE CASCADE
+) ENGINE=InnoDB;
+
+-- ---------------------------------------------------------------------
+-- product_version
+-- ---------------------------------------------------------------------
+
+DROP TABLE IF EXISTS `product_version`;
+
+CREATE TABLE `product_version`
+(
+    `id` INTEGER NOT NULL,
+    `tax_rule_id` INTEGER,
+    `ref` VARCHAR(255) NOT NULL,
+    `price` FLOAT NOT NULL,
+    `price2` FLOAT,
+    `ecotax` FLOAT,
+    `newness` TINYINT DEFAULT 0,
+    `promo` TINYINT DEFAULT 0,
+    `stock` INTEGER DEFAULT 0,
+    `visible` TINYINT DEFAULT 0 NOT NULL,
+    `weight` FLOAT,
+    `position` INTEGER NOT NULL,
+    `created_at` DATETIME,
+    `updated_at` DATETIME,
+    `version` INTEGER DEFAULT 0 NOT NULL,
+    `version_created_at` DATETIME,
+    `version_created_by` VARCHAR(100),
+    PRIMARY KEY (`id`,`version`),
+    CONSTRAINT `product_version_FK_1`
+        FOREIGN KEY (`id`)
+        REFERENCES `product` (`id`)
+        ON DELETE CASCADE
+) ENGINE=InnoDB;
+
+-- ---------------------------------------------------------------------
+-- folder_version
+-- ---------------------------------------------------------------------
+
+DROP TABLE IF EXISTS `folder_version`;
+
+CREATE TABLE `folder_version`
+(
+    `id` INTEGER NOT NULL,
+    `parent` INTEGER NOT NULL,
+    `link` VARCHAR(255),
+    `visible` TINYINT,
+    `position` INTEGER,
+    `created_at` DATETIME,
+    `updated_at` DATETIME,
+    `version` INTEGER DEFAULT 0 NOT NULL,
+    `version_created_at` DATETIME,
+    `version_created_by` VARCHAR(100),
+    PRIMARY KEY (`id`,`version`),
+    CONSTRAINT `folder_version_FK_1`
+        FOREIGN KEY (`id`)
+        REFERENCES `folder` (`id`)
+        ON DELETE CASCADE
+) ENGINE=InnoDB;
+
+-- ---------------------------------------------------------------------
+-- content_version
+-- ---------------------------------------------------------------------
+
+DROP TABLE IF EXISTS `content_version`;
+
+CREATE TABLE `content_version`
+(
+    `id` INTEGER NOT NULL,
+    `visible` TINYINT,
+    `position` INTEGER,
+    `created_at` DATETIME,
+    `updated_at` DATETIME,
+    `version` INTEGER DEFAULT 0 NOT NULL,
+    `version_created_at` DATETIME,
+    `version_created_by` VARCHAR(100),
+    PRIMARY KEY (`id`,`version`),
+    CONSTRAINT `content_version_FK_1`
+        FOREIGN KEY (`id`)
+        REFERENCES `content` (`id`)
+        ON DELETE CASCADE
+) ENGINE=InnoDB;
+
+-- ---------------------------------------------------------------------
+-- message_version
+-- ---------------------------------------------------------------------
+
+DROP TABLE IF EXISTS `message_version`;
+
+CREATE TABLE `message_version`
+(
+    `id` INTEGER NOT NULL,
+    `code` VARCHAR(45) NOT NULL,
+    `secured` TINYINT,
+    `ref` VARCHAR(255),
+    `created_at` DATETIME,
+    `updated_at` DATETIME,
+    `version` INTEGER DEFAULT 0 NOT NULL,
+    `version_created_at` DATETIME,
+    `version_created_by` VARCHAR(100),
+    PRIMARY KEY (`id`,`version`),
+    CONSTRAINT `message_version_FK_1`
         FOREIGN KEY (`id`)
         REFERENCES `message` (`id`)
         ON DELETE CASCADE
