@@ -22,32 +22,6 @@ CREATE TABLE `category`
 ) ENGINE=InnoDB;
 
 -- ---------------------------------------------------------------------
--- category_desc
--- ---------------------------------------------------------------------
-
-DROP TABLE IF EXISTS `category_desc`;
-
-CREATE TABLE `category_desc`
-(
-    `id` INTEGER NOT NULL AUTO_INCREMENT,
-    `category_id` INTEGER NOT NULL,
-    `lang` VARCHAR(10) NOT NULL,
-    `title` VARCHAR(255),
-    `description` LONGTEXT,
-    `chapo` TEXT,
-    `postscriptum` TEXT,
-    `created_at` DATETIME,
-    `updated_at` DATETIME,
-    PRIMARY KEY (`id`),
-    INDEX `idx_ category_desc_category_id` (`category_id`),
-    CONSTRAINT `fk_ category_desc_category_id`
-        FOREIGN KEY (`category_id`)
-        REFERENCES `category` (`id`)
-        ON UPDATE RESTRICT
-        ON DELETE CASCADE
-) ENGINE=InnoDB;
-
--- ---------------------------------------------------------------------
 -- product
 -- ---------------------------------------------------------------------
 
@@ -77,32 +51,6 @@ CREATE TABLE `product`
         REFERENCES `tax_rule` (`id`)
         ON UPDATE RESTRICT
         ON DELETE SET NULL
-) ENGINE=InnoDB;
-
--- ---------------------------------------------------------------------
--- product_desc
--- ---------------------------------------------------------------------
-
-DROP TABLE IF EXISTS `product_desc`;
-
-CREATE TABLE `product_desc`
-(
-    `id` INTEGER NOT NULL AUTO_INCREMENT,
-    `product_id` INTEGER NOT NULL,
-    `lang` VARCHAR(10) NOT NULL,
-    `title` VARCHAR(255),
-    `description` LONGTEXT,
-    `chapo` TEXT,
-    `postscriptum` TEXT,
-    `created_at` DATETIME,
-    `updated_at` DATETIME,
-    PRIMARY KEY (`id`),
-    INDEX `idx_product_desc_product_id` (`product_id`),
-    CONSTRAINT `fk_product_desc_product_id`
-        FOREIGN KEY (`product_id`)
-        REFERENCES `product` (`id`)
-        ON UPDATE RESTRICT
-        ON DELETE CASCADE
 ) ENGINE=InnoDB;
 
 -- ---------------------------------------------------------------------
@@ -157,31 +105,6 @@ CREATE TABLE `country`
 ) ENGINE=InnoDB;
 
 -- ---------------------------------------------------------------------
--- country_desc
--- ---------------------------------------------------------------------
-
-DROP TABLE IF EXISTS `country_desc`;
-
-CREATE TABLE `country_desc`
-(
-    `id` INTEGER NOT NULL AUTO_INCREMENT,
-    `country_id` INTEGER NOT NULL,
-    `lang` VARCHAR(10) NOT NULL,
-    `title` VARCHAR(255),
-    `description` TEXT,
-    `chapo` TEXT,
-    `created_at` DATETIME,
-    `updated_at` DATETIME,
-    PRIMARY KEY (`id`),
-    INDEX `idx_country_desc_country_id` (`country_id`),
-    CONSTRAINT `fk_country_desc_country_id`
-        FOREIGN KEY (`country_id`)
-        REFERENCES `country` (`id`)
-        ON UPDATE RESTRICT
-        ON DELETE CASCADE
-) ENGINE=InnoDB;
-
--- ---------------------------------------------------------------------
 -- tax
 -- ---------------------------------------------------------------------
 
@@ -197,30 +120,6 @@ CREATE TABLE `tax`
 ) ENGINE=InnoDB;
 
 -- ---------------------------------------------------------------------
--- tax_desc
--- ---------------------------------------------------------------------
-
-DROP TABLE IF EXISTS `tax_desc`;
-
-CREATE TABLE `tax_desc`
-(
-    `id` INTEGER NOT NULL AUTO_INCREMENT,
-    `tax_id` INTEGER NOT NULL,
-    `lang` VARCHAR(10) NOT NULL,
-    `title` VARCHAR(255),
-    `description` TEXT,
-    `created_at` DATETIME,
-    `updated_at` DATETIME,
-    PRIMARY KEY (`id`),
-    INDEX `idx_tax_desc_tax_id` (`tax_id`),
-    CONSTRAINT `fk_tax_desc_tax_id`
-        FOREIGN KEY (`tax_id`)
-        REFERENCES `tax` (`id`)
-        ON UPDATE RESTRICT
-        ON DELETE CASCADE
-) ENGINE=InnoDB;
-
--- ---------------------------------------------------------------------
 -- tax_rule
 -- ---------------------------------------------------------------------
 
@@ -230,33 +129,11 @@ CREATE TABLE `tax_rule`
 (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `code` VARCHAR(45),
-    `created_at` DATETIME,
-    `updated_at` DATETIME,
-    PRIMARY KEY (`id`)
-) ENGINE=InnoDB;
-
--- ---------------------------------------------------------------------
--- tax_rule_desc
--- ---------------------------------------------------------------------
-
-DROP TABLE IF EXISTS `tax_rule_desc`;
-
-CREATE TABLE `tax_rule_desc`
-(
-    `id` INTEGER NOT NULL AUTO_INCREMENT,
-    `tax_rule_id` INTEGER,
-    `lang` VARCHAR(10),
     `title` VARCHAR(255),
     `description` TEXT,
     `created_at` DATETIME,
     `updated_at` DATETIME,
-    PRIMARY KEY (`id`),
-    INDEX `idx_tax_rule_desc_tax_rule_id` (`tax_rule_id`),
-    CONSTRAINT `fk_tax_rule_desc_tax_rule_id`
-        FOREIGN KEY (`tax_rule_id`)
-        REFERENCES `tax_rule` (`id`)
-        ON UPDATE RESTRICT
-        ON DELETE CASCADE
+    PRIMARY KEY (`id`)
 ) ENGINE=InnoDB;
 
 -- ---------------------------------------------------------------------
@@ -312,31 +189,6 @@ CREATE TABLE `feature`
 ) ENGINE=InnoDB;
 
 -- ---------------------------------------------------------------------
--- feature_desc
--- ---------------------------------------------------------------------
-
-DROP TABLE IF EXISTS `feature_desc`;
-
-CREATE TABLE `feature_desc`
-(
-    `id` INTEGER NOT NULL AUTO_INCREMENT,
-    `feature_id` INTEGER NOT NULL,
-    `lang` VARCHAR(10) NOT NULL,
-    `title` VARCHAR(255),
-    `description` TEXT,
-    `chapo` VARCHAR(45),
-    `created_at` DATETIME,
-    `updated_at` DATETIME,
-    PRIMARY KEY (`id`),
-    INDEX `idx_feature_desc_feature_id` (`feature_id`),
-    CONSTRAINT `fk_feature_desc_feature_id`
-        FOREIGN KEY (`feature_id`)
-        REFERENCES `feature` (`id`)
-        ON UPDATE RESTRICT
-        ON DELETE CASCADE
-) ENGINE=InnoDB;
-
--- ---------------------------------------------------------------------
 -- feature_av
 -- ---------------------------------------------------------------------
 
@@ -353,31 +205,6 @@ CREATE TABLE `feature_av`
     CONSTRAINT `fk_feature_av_feature_id`
         FOREIGN KEY (`feature_id`)
         REFERENCES `feature` (`id`)
-        ON UPDATE RESTRICT
-        ON DELETE CASCADE
-) ENGINE=InnoDB;
-
--- ---------------------------------------------------------------------
--- feature_av_desc
--- ---------------------------------------------------------------------
-
-DROP TABLE IF EXISTS `feature_av_desc`;
-
-CREATE TABLE `feature_av_desc`
-(
-    `id` INTEGER NOT NULL AUTO_INCREMENT,
-    `feature_av_id` INTEGER NOT NULL,
-    `lang` VARCHAR(10),
-    `title` VARCHAR(255),
-    `description` TEXT NOT NULL,
-    `chapo` TEXT NOT NULL,
-    `created_at` DATETIME,
-    `updated_at` DATETIME,
-    PRIMARY KEY (`id`),
-    INDEX `idx_feature_av_desc_feature_av_id` (`feature_av_id`),
-    CONSTRAINT `fk_feature_av_desc_feature_av_id`
-        FOREIGN KEY (`feature_av_id`)
-        REFERENCES `feature_av` (`id`)
         ON UPDATE RESTRICT
         ON DELETE CASCADE
 ) ENGINE=InnoDB;
@@ -463,31 +290,6 @@ CREATE TABLE `attribute`
 ) ENGINE=InnoDB;
 
 -- ---------------------------------------------------------------------
--- attribute_desc
--- ---------------------------------------------------------------------
-
-DROP TABLE IF EXISTS `attribute_desc`;
-
-CREATE TABLE `attribute_desc`
-(
-    `id` INTEGER NOT NULL AUTO_INCREMENT,
-    `lang` VARCHAR(10) NOT NULL,
-    `attribute_id` INTEGER NOT NULL,
-    `title` VARCHAR(255),
-    `description` TEXT,
-    `chapo` TEXT,
-    `created_at` DATETIME,
-    `updated_at` DATETIME,
-    PRIMARY KEY (`id`),
-    INDEX `idx_ attribute_desc_attribute_id` (`attribute_id`),
-    CONSTRAINT `fk_ attribute_desc_attribute_id`
-        FOREIGN KEY (`attribute_id`)
-        REFERENCES `attribute` (`id`)
-        ON UPDATE RESTRICT
-        ON DELETE CASCADE
-) ENGINE=InnoDB;
-
--- ---------------------------------------------------------------------
 -- attribute_av
 -- ---------------------------------------------------------------------
 
@@ -505,31 +307,6 @@ CREATE TABLE `attribute_av`
     CONSTRAINT `fk_attribute_av_attribute_id`
         FOREIGN KEY (`attribute_id`)
         REFERENCES `attribute` (`id`)
-        ON UPDATE RESTRICT
-        ON DELETE CASCADE
-) ENGINE=InnoDB;
-
--- ---------------------------------------------------------------------
--- attribute_av_desc
--- ---------------------------------------------------------------------
-
-DROP TABLE IF EXISTS `attribute_av_desc`;
-
-CREATE TABLE `attribute_av_desc`
-(
-    `id` INTEGER NOT NULL AUTO_INCREMENT,
-    `attribute_av_id` INTEGER NOT NULL,
-    `lang` VARCHAR(10) NOT NULL,
-    `title` VARCHAR(255),
-    `description` TEXT,
-    `chapo` TEXT,
-    `created_at` DATETIME,
-    `updated_at` DATETIME,
-    PRIMARY KEY (`id`),
-    INDEX `idx_attribute_av_desc_attribute_av_id` (`attribute_av_id`),
-    CONSTRAINT `fk_attribute_av_desc_attribute_av_id`
-        FOREIGN KEY (`attribute_av_id`)
-        REFERENCES `attribute_av` (`id`)
         ON UPDATE RESTRICT
         ON DELETE CASCADE
 ) ENGINE=InnoDB;
@@ -758,29 +535,6 @@ CREATE TABLE `customer_title`
 ) ENGINE=InnoDB;
 
 -- ---------------------------------------------------------------------
--- customer_title_desc
--- ---------------------------------------------------------------------
-
-DROP TABLE IF EXISTS `customer_title_desc`;
-
-CREATE TABLE `customer_title_desc`
-(
-    `id` INTEGER NOT NULL AUTO_INCREMENT,
-    `customer_title_id` INTEGER NOT NULL,
-    `lang` VARCHAR(10) NOT NULL,
-    `short` VARCHAR(10),
-    `long` VARCHAR(45),
-    `created_at` DATETIME,
-    `updated_at` DATETIME,
-    PRIMARY KEY (`id`),
-    INDEX `idx_customer_title_desc_customer_title_id` (`customer_title_id`),
-    CONSTRAINT `fk_customer_title_desc_customer_title_id`
-        FOREIGN KEY (`customer_title_id`)
-        REFERENCES `customer_title` (`id`)
-        ON DELETE CASCADE
-) ENGINE=InnoDB;
-
--- ---------------------------------------------------------------------
 -- lang
 -- ---------------------------------------------------------------------
 
@@ -817,32 +571,6 @@ CREATE TABLE `folder`
 ) ENGINE=InnoDB;
 
 -- ---------------------------------------------------------------------
--- folder_desc
--- ---------------------------------------------------------------------
-
-DROP TABLE IF EXISTS `folder_desc`;
-
-CREATE TABLE `folder_desc`
-(
-    `id` INTEGER NOT NULL AUTO_INCREMENT,
-    `folder_id` INTEGER NOT NULL,
-    `lang` VARCHAR(10),
-    `title` VARCHAR(255),
-    `description` TEXT,
-    `chapo` TEXT,
-    `postscriptum` TEXT,
-    `created_at` DATETIME,
-    `updated_at` DATETIME,
-    PRIMARY KEY (`id`),
-    INDEX `idx_ folder_desc_folder_id` (`folder_id`),
-    CONSTRAINT `fk_ folder_desc_folder_id`
-        FOREIGN KEY (`folder_id`)
-        REFERENCES `folder` (`id`)
-        ON UPDATE RESTRICT
-        ON DELETE CASCADE
-) ENGINE=InnoDB;
-
--- ---------------------------------------------------------------------
 -- content
 -- ---------------------------------------------------------------------
 
@@ -856,32 +584,6 @@ CREATE TABLE `content`
     `created_at` DATETIME,
     `updated_at` DATETIME,
     PRIMARY KEY (`id`)
-) ENGINE=InnoDB;
-
--- ---------------------------------------------------------------------
--- content_desc
--- ---------------------------------------------------------------------
-
-DROP TABLE IF EXISTS `content_desc`;
-
-CREATE TABLE `content_desc`
-(
-    `id` INTEGER NOT NULL AUTO_INCREMENT,
-    `content_id` INTEGER NOT NULL,
-    `lang` VARCHAR(10) NOT NULL,
-    `title` VARCHAR(255),
-    `description` TEXT,
-    `chapo` TEXT,
-    `postscriptum` TEXT,
-    `created_at` DATETIME,
-    `updated_at` DATETIME,
-    PRIMARY KEY (`id`),
-    INDEX `idx_content_desc_content_id` (`content_id`),
-    CONSTRAINT `fk_content_desc_content_id`
-        FOREIGN KEY (`content_id`)
-        REFERENCES `content` (`id`)
-        ON UPDATE RESTRICT
-        ON DELETE CASCADE
 ) ENGINE=InnoDB;
 
 -- ---------------------------------------------------------------------
@@ -965,30 +667,6 @@ CREATE TABLE `image`
 ) ENGINE=InnoDB;
 
 -- ---------------------------------------------------------------------
--- image_desc
--- ---------------------------------------------------------------------
-
-DROP TABLE IF EXISTS `image_desc`;
-
-CREATE TABLE `image_desc`
-(
-    `id` INTEGER NOT NULL AUTO_INCREMENT,
-    `image_id` INTEGER,
-    `title` VARCHAR(255),
-    `description` TEXT,
-    `chapo` TEXT,
-    `created_at` DATETIME,
-    `updated_at` DATETIME,
-    PRIMARY KEY (`id`),
-    INDEX `idx_image_desc_image_id` (`image_id`),
-    CONSTRAINT `fk_image_desc_image_id`
-        FOREIGN KEY (`image_id`)
-        REFERENCES `image` (`id`)
-        ON UPDATE RESTRICT
-        ON DELETE CASCADE
-) ENGINE=InnoDB;
-
--- ---------------------------------------------------------------------
 -- document
 -- ---------------------------------------------------------------------
 
@@ -1028,31 +706,6 @@ CREATE TABLE `document`
     CONSTRAINT `fk_document_folder_id`
         FOREIGN KEY (`folder_id`)
         REFERENCES `folder` (`id`)
-        ON UPDATE RESTRICT
-        ON DELETE CASCADE
-) ENGINE=InnoDB;
-
--- ---------------------------------------------------------------------
--- document_desc
--- ---------------------------------------------------------------------
-
-DROP TABLE IF EXISTS `document_desc`;
-
-CREATE TABLE `document_desc`
-(
-    `id` INTEGER NOT NULL AUTO_INCREMENT,
-    `document_id` INTEGER NOT NULL,
-    `lang` VARCHAR(10),
-    `title` VARCHAR(255),
-    `description` TEXT,
-    `chapo` TEXT,
-    `created_at` DATETIME,
-    `updated_at` DATETIME,
-    PRIMARY KEY (`id`),
-    INDEX `idx_ document_desc_document_id` (`document_id`),
-    CONSTRAINT `fk_ document_desc_document_id`
-        FOREIGN KEY (`document_id`)
-        REFERENCES `document` (`id`)
         ON UPDATE RESTRICT
         ON DELETE CASCADE
 ) ENGINE=InnoDB;
@@ -1205,31 +858,6 @@ CREATE TABLE `order_status`
 ) ENGINE=InnoDB;
 
 -- ---------------------------------------------------------------------
--- order_status_desc
--- ---------------------------------------------------------------------
-
-DROP TABLE IF EXISTS `order_status_desc`;
-
-CREATE TABLE `order_status_desc`
-(
-    `id` INTEGER NOT NULL AUTO_INCREMENT,
-    `status_id` INTEGER NOT NULL,
-    `lang` VARCHAR(10) NOT NULL,
-    `title` VARCHAR(255),
-    `description` TEXT,
-    `chapo` TEXT,
-    `created_at` DATETIME,
-    `updated_at` DATETIME,
-    PRIMARY KEY (`id`),
-    INDEX `idx_order_status_desc_status_id` (`status_id`),
-    CONSTRAINT `fk_order_status_desc_status_id`
-        FOREIGN KEY (`status_id`)
-        REFERENCES `order_status` (`id`)
-        ON UPDATE RESTRICT
-        ON DELETE CASCADE
-) ENGINE=InnoDB;
-
--- ---------------------------------------------------------------------
 -- order_feature
 -- ---------------------------------------------------------------------
 
@@ -1269,32 +897,6 @@ CREATE TABLE `module`
     `updated_at` DATETIME,
     PRIMARY KEY (`id`),
     UNIQUE INDEX `code_UNIQUE` (`code`)
-) ENGINE=InnoDB;
-
--- ---------------------------------------------------------------------
--- module_desc
--- ---------------------------------------------------------------------
-
-DROP TABLE IF EXISTS `module_desc`;
-
-CREATE TABLE `module_desc`
-(
-    `id` INTEGER NOT NULL AUTO_INCREMENT,
-    `module_id` INTEGER NOT NULL,
-    `lang` VARCHAR(10) NOT NULL,
-    `title` VARCHAR(255),
-    `description` TEXT,
-    `chapo` TEXT,
-    `currency_id` INTEGER,
-    `created_at` DATETIME,
-    `updated_at` DATETIME,
-    PRIMARY KEY (`id`),
-    INDEX `idx_module_desc_module_id` (`module_id`),
-    CONSTRAINT `fk_module_desc_module_id`
-        FOREIGN KEY (`module_id`)
-        REFERENCES `module` (`id`)
-        ON UPDATE RESTRICT
-        ON DELETE CASCADE
 ) ENGINE=InnoDB;
 
 -- ---------------------------------------------------------------------
@@ -1381,31 +983,6 @@ CREATE TABLE `group`
 ) ENGINE=InnoDB;
 
 -- ---------------------------------------------------------------------
--- group_desc
--- ---------------------------------------------------------------------
-
-DROP TABLE IF EXISTS `group_desc`;
-
-CREATE TABLE `group_desc`
-(
-    `id` INTEGER NOT NULL,
-    `group_id` INTEGER NOT NULL,
-    `lang` VARCHAR(10) NOT NULL,
-    `title` VARCHAR(255),
-    `description` TEXT,
-    `chapo` TEXT,
-    `created_at` DATETIME,
-    `updated_at` DATETIME,
-    PRIMARY KEY (`id`),
-    INDEX `idx_group_desc_group_id` (`group_id`),
-    CONSTRAINT `fk_group_desc_group_id`
-        FOREIGN KEY (`group_id`)
-        REFERENCES `group` (`id`)
-        ON UPDATE RESTRICT
-        ON DELETE CASCADE
-) ENGINE=InnoDB;
-
--- ---------------------------------------------------------------------
 -- resource
 -- ---------------------------------------------------------------------
 
@@ -1419,29 +996,6 @@ CREATE TABLE `resource`
     `updated_at` DATETIME,
     PRIMARY KEY (`id`),
     UNIQUE INDEX `code_UNIQUE` (`code`)
-) ENGINE=InnoDB;
-
--- ---------------------------------------------------------------------
--- resource_desc
--- ---------------------------------------------------------------------
-
-DROP TABLE IF EXISTS `resource_desc`;
-
-CREATE TABLE `resource_desc`
-(
-    `id` INTEGER NOT NULL AUTO_INCREMENT,
-    `resource_id` INTEGER NOT NULL,
-    `lang` VARCHAR(10),
-    `title` VARCHAR(255),
-    `created_at` DATETIME,
-    `updated_at` DATETIME,
-    PRIMARY KEY (`id`),
-    INDEX `idx_resource_desc_resource_id` (`resource_id`),
-    CONSTRAINT `fk_resource_desc_resource_id`
-        FOREIGN KEY (`resource_id`)
-        REFERENCES `resource` (`id`)
-        ON UPDATE RESTRICT
-        ON DELETE CASCADE
 ) ENGINE=InnoDB;
 
 -- ---------------------------------------------------------------------
@@ -1562,34 +1116,10 @@ CREATE TABLE `message`
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `code` VARCHAR(45) NOT NULL,
     `secured` TINYINT,
+    `ref` VARCHAR(255),
     `created_at` DATETIME,
     `updated_at` DATETIME,
     PRIMARY KEY (`id`)
-) ENGINE=InnoDB;
-
--- ---------------------------------------------------------------------
--- message_desc
--- ---------------------------------------------------------------------
-
-DROP TABLE IF EXISTS `message_desc`;
-
-CREATE TABLE `message_desc`
-(
-    `id` INTEGER NOT NULL AUTO_INCREMENT,
-    `message_id` INTEGER NOT NULL,
-    `lang` VARCHAR(10),
-    `title` VARCHAR(45),
-    `description` TEXT,
-    `description_html` TEXT,
-    `created_at` DATETIME,
-    `updated_at` DATETIME,
-    PRIMARY KEY (`id`),
-    INDEX `idx_message_desc_message_id` (`message_id`),
-    CONSTRAINT `fk_message_desc_message_id`
-        FOREIGN KEY (`message_id`)
-        REFERENCES `message` (`id`)
-        ON UPDATE RESTRICT
-        ON DELETE CASCADE
 ) ENGINE=InnoDB;
 
 -- ---------------------------------------------------------------------
@@ -1705,31 +1235,6 @@ CREATE TABLE `coupon_order`
 ) ENGINE=InnoDB;
 
 -- ---------------------------------------------------------------------
--- config_desc
--- ---------------------------------------------------------------------
-
-DROP TABLE IF EXISTS `config_desc`;
-
-CREATE TABLE `config_desc`
-(
-    `id` INTEGER NOT NULL AUTO_INCREMENT,
-    `config_id` INTEGER NOT NULL,
-    `lang` VARCHAR(10) NOT NULL,
-    `title` VARCHAR(255),
-    `description` TEXT,
-    `chapo` TEXT,
-    `created_at` DATETIME,
-    `updated_at` DATETIME,
-    PRIMARY KEY (`id`),
-    INDEX `idx_ config_desc_config_id` (`config_id`),
-    CONSTRAINT `fk_ config_desc_config_id`
-        FOREIGN KEY (`config_id`)
-        REFERENCES `config` (`id`)
-        ON UPDATE RESTRICT
-        ON DELETE CASCADE
-) ENGINE=InnoDB;
-
--- ---------------------------------------------------------------------
 -- admin_log
 -- ---------------------------------------------------------------------
 
@@ -1772,6 +1277,417 @@ CREATE TABLE `content_folder`
         FOREIGN KEY (`folder_id`)
         REFERENCES `folder` (`id`)
         ON UPDATE RESTRICT
+        ON DELETE CASCADE
+) ENGINE=InnoDB;
+
+-- ---------------------------------------------------------------------
+-- category_i18n
+-- ---------------------------------------------------------------------
+
+DROP TABLE IF EXISTS `category_i18n`;
+
+CREATE TABLE `category_i18n`
+(
+    `id` INTEGER NOT NULL,
+    `locale` VARCHAR(5) DEFAULT 'en_EN' NOT NULL,
+    `title` VARCHAR(255),
+    `description` LONGTEXT,
+    `chapo` TEXT,
+    `postscriptum` TEXT,
+    PRIMARY KEY (`id`,`locale`),
+    CONSTRAINT `category_i18n_FK_1`
+        FOREIGN KEY (`id`)
+        REFERENCES `category` (`id`)
+        ON DELETE CASCADE
+) ENGINE=InnoDB;
+
+-- ---------------------------------------------------------------------
+-- product_i18n
+-- ---------------------------------------------------------------------
+
+DROP TABLE IF EXISTS `product_i18n`;
+
+CREATE TABLE `product_i18n`
+(
+    `id` INTEGER NOT NULL,
+    `locale` VARCHAR(5) DEFAULT 'en_EN' NOT NULL,
+    `title` VARCHAR(255),
+    `description` LONGTEXT,
+    `chapo` TEXT,
+    `postscriptum` TEXT,
+    PRIMARY KEY (`id`,`locale`),
+    CONSTRAINT `product_i18n_FK_1`
+        FOREIGN KEY (`id`)
+        REFERENCES `product` (`id`)
+        ON DELETE CASCADE
+) ENGINE=InnoDB;
+
+-- ---------------------------------------------------------------------
+-- country_i18n
+-- ---------------------------------------------------------------------
+
+DROP TABLE IF EXISTS `country_i18n`;
+
+CREATE TABLE `country_i18n`
+(
+    `id` INTEGER NOT NULL,
+    `locale` VARCHAR(5) DEFAULT 'en_EN' NOT NULL,
+    `title` VARCHAR(255),
+    `description` LONGTEXT,
+    `chapo` TEXT,
+    `postscriptum` TEXT,
+    PRIMARY KEY (`id`,`locale`),
+    CONSTRAINT `country_i18n_FK_1`
+        FOREIGN KEY (`id`)
+        REFERENCES `country` (`id`)
+        ON DELETE CASCADE
+) ENGINE=InnoDB;
+
+-- ---------------------------------------------------------------------
+-- tax_i18n
+-- ---------------------------------------------------------------------
+
+DROP TABLE IF EXISTS `tax_i18n`;
+
+CREATE TABLE `tax_i18n`
+(
+    `id` INTEGER NOT NULL,
+    `locale` VARCHAR(5) DEFAULT 'en_EN' NOT NULL,
+    `title` VARCHAR(255),
+    `description` TEXT,
+    PRIMARY KEY (`id`,`locale`),
+    CONSTRAINT `tax_i18n_FK_1`
+        FOREIGN KEY (`id`)
+        REFERENCES `tax` (`id`)
+        ON DELETE CASCADE
+) ENGINE=InnoDB;
+
+-- ---------------------------------------------------------------------
+-- tax_rule_i18n
+-- ---------------------------------------------------------------------
+
+DROP TABLE IF EXISTS `tax_rule_i18n`;
+
+CREATE TABLE `tax_rule_i18n`
+(
+    `id` INTEGER NOT NULL,
+    `locale` VARCHAR(5) DEFAULT 'en_EN' NOT NULL,
+    PRIMARY KEY (`id`,`locale`),
+    CONSTRAINT `tax_rule_i18n_FK_1`
+        FOREIGN KEY (`id`)
+        REFERENCES `tax_rule` (`id`)
+        ON DELETE CASCADE
+) ENGINE=InnoDB;
+
+-- ---------------------------------------------------------------------
+-- feature_i18n
+-- ---------------------------------------------------------------------
+
+DROP TABLE IF EXISTS `feature_i18n`;
+
+CREATE TABLE `feature_i18n`
+(
+    `id` INTEGER NOT NULL,
+    `locale` VARCHAR(5) DEFAULT 'en_EN' NOT NULL,
+    `title` VARCHAR(255),
+    `description` LONGTEXT,
+    `chapo` TEXT,
+    `postscriptum` TEXT,
+    PRIMARY KEY (`id`,`locale`),
+    CONSTRAINT `feature_i18n_FK_1`
+        FOREIGN KEY (`id`)
+        REFERENCES `feature` (`id`)
+        ON DELETE CASCADE
+) ENGINE=InnoDB;
+
+-- ---------------------------------------------------------------------
+-- feature_av_i18n
+-- ---------------------------------------------------------------------
+
+DROP TABLE IF EXISTS `feature_av_i18n`;
+
+CREATE TABLE `feature_av_i18n`
+(
+    `id` INTEGER NOT NULL,
+    `locale` VARCHAR(5) DEFAULT 'en_EN' NOT NULL,
+    `title` VARCHAR(255),
+    `description` LONGTEXT,
+    `chapo` TEXT,
+    `postscriptum` TEXT,
+    PRIMARY KEY (`id`,`locale`),
+    CONSTRAINT `feature_av_i18n_FK_1`
+        FOREIGN KEY (`id`)
+        REFERENCES `feature_av` (`id`)
+        ON DELETE CASCADE
+) ENGINE=InnoDB;
+
+-- ---------------------------------------------------------------------
+-- attribute_i18n
+-- ---------------------------------------------------------------------
+
+DROP TABLE IF EXISTS `attribute_i18n`;
+
+CREATE TABLE `attribute_i18n`
+(
+    `id` INTEGER NOT NULL,
+    `locale` VARCHAR(5) DEFAULT 'en_EN' NOT NULL,
+    `title` VARCHAR(255),
+    `description` LONGTEXT,
+    `chapo` TEXT,
+    `postscriptum` TEXT,
+    PRIMARY KEY (`id`,`locale`),
+    CONSTRAINT `attribute_i18n_FK_1`
+        FOREIGN KEY (`id`)
+        REFERENCES `attribute` (`id`)
+        ON DELETE CASCADE
+) ENGINE=InnoDB;
+
+-- ---------------------------------------------------------------------
+-- attribute_av_i18n
+-- ---------------------------------------------------------------------
+
+DROP TABLE IF EXISTS `attribute_av_i18n`;
+
+CREATE TABLE `attribute_av_i18n`
+(
+    `id` INTEGER NOT NULL,
+    `locale` VARCHAR(5) DEFAULT 'en_EN' NOT NULL,
+    `title` VARCHAR(255),
+    `description` LONGTEXT,
+    `chapo` TEXT,
+    `postscriptum` TEXT,
+    PRIMARY KEY (`id`,`locale`),
+    CONSTRAINT `attribute_av_i18n_FK_1`
+        FOREIGN KEY (`id`)
+        REFERENCES `attribute_av` (`id`)
+        ON DELETE CASCADE
+) ENGINE=InnoDB;
+
+-- ---------------------------------------------------------------------
+-- config_i18n
+-- ---------------------------------------------------------------------
+
+DROP TABLE IF EXISTS `config_i18n`;
+
+CREATE TABLE `config_i18n`
+(
+    `id` INTEGER NOT NULL,
+    `locale` VARCHAR(5) DEFAULT 'en_EN' NOT NULL,
+    `title` VARCHAR(255),
+    `description` LONGTEXT,
+    `chapo` TEXT,
+    `postscriptum` TEXT,
+    PRIMARY KEY (`id`,`locale`),
+    CONSTRAINT `config_i18n_FK_1`
+        FOREIGN KEY (`id`)
+        REFERENCES `config` (`id`)
+        ON DELETE CASCADE
+) ENGINE=InnoDB;
+
+-- ---------------------------------------------------------------------
+-- customer_title_i18n
+-- ---------------------------------------------------------------------
+
+DROP TABLE IF EXISTS `customer_title_i18n`;
+
+CREATE TABLE `customer_title_i18n`
+(
+    `id` INTEGER NOT NULL,
+    `locale` VARCHAR(5) DEFAULT 'en_EN' NOT NULL,
+    `short` VARCHAR(10),
+    `long` VARCHAR(45),
+    PRIMARY KEY (`id`,`locale`),
+    CONSTRAINT `customer_title_i18n_FK_1`
+        FOREIGN KEY (`id`)
+        REFERENCES `customer_title` (`id`)
+        ON DELETE CASCADE
+) ENGINE=InnoDB;
+
+-- ---------------------------------------------------------------------
+-- folder_i18n
+-- ---------------------------------------------------------------------
+
+DROP TABLE IF EXISTS `folder_i18n`;
+
+CREATE TABLE `folder_i18n`
+(
+    `id` INTEGER NOT NULL,
+    `locale` VARCHAR(5) DEFAULT 'en_EN' NOT NULL,
+    `title` VARCHAR(255),
+    `description` LONGTEXT,
+    `chapo` TEXT,
+    `postscriptum` TEXT,
+    PRIMARY KEY (`id`,`locale`),
+    CONSTRAINT `folder_i18n_FK_1`
+        FOREIGN KEY (`id`)
+        REFERENCES `folder` (`id`)
+        ON DELETE CASCADE
+) ENGINE=InnoDB;
+
+-- ---------------------------------------------------------------------
+-- content_i18n
+-- ---------------------------------------------------------------------
+
+DROP TABLE IF EXISTS `content_i18n`;
+
+CREATE TABLE `content_i18n`
+(
+    `id` INTEGER NOT NULL,
+    `locale` VARCHAR(5) DEFAULT 'en_EN' NOT NULL,
+    `title` VARCHAR(255),
+    `description` LONGTEXT,
+    `chapo` TEXT,
+    `postscriptum` TEXT,
+    PRIMARY KEY (`id`,`locale`),
+    CONSTRAINT `content_i18n_FK_1`
+        FOREIGN KEY (`id`)
+        REFERENCES `content` (`id`)
+        ON DELETE CASCADE
+) ENGINE=InnoDB;
+
+-- ---------------------------------------------------------------------
+-- image_i18n
+-- ---------------------------------------------------------------------
+
+DROP TABLE IF EXISTS `image_i18n`;
+
+CREATE TABLE `image_i18n`
+(
+    `id` INTEGER NOT NULL,
+    `locale` VARCHAR(5) DEFAULT 'en_EN' NOT NULL,
+    `title` VARCHAR(255),
+    `description` LONGTEXT,
+    `chapo` TEXT,
+    `postscriptum` TEXT,
+    PRIMARY KEY (`id`,`locale`),
+    CONSTRAINT `image_i18n_FK_1`
+        FOREIGN KEY (`id`)
+        REFERENCES `image` (`id`)
+        ON DELETE CASCADE
+) ENGINE=InnoDB;
+
+-- ---------------------------------------------------------------------
+-- document_i18n
+-- ---------------------------------------------------------------------
+
+DROP TABLE IF EXISTS `document_i18n`;
+
+CREATE TABLE `document_i18n`
+(
+    `id` INTEGER NOT NULL,
+    `locale` VARCHAR(5) DEFAULT 'en_EN' NOT NULL,
+    `title` VARCHAR(255),
+    `description` LONGTEXT,
+    `chapo` TEXT,
+    `postscriptum` TEXT,
+    PRIMARY KEY (`id`,`locale`),
+    CONSTRAINT `document_i18n_FK_1`
+        FOREIGN KEY (`id`)
+        REFERENCES `document` (`id`)
+        ON DELETE CASCADE
+) ENGINE=InnoDB;
+
+-- ---------------------------------------------------------------------
+-- order_status_i18n
+-- ---------------------------------------------------------------------
+
+DROP TABLE IF EXISTS `order_status_i18n`;
+
+CREATE TABLE `order_status_i18n`
+(
+    `id` INTEGER NOT NULL,
+    `locale` VARCHAR(5) DEFAULT 'en_EN' NOT NULL,
+    `title` VARCHAR(255),
+    `description` LONGTEXT,
+    `chapo` TEXT,
+    `postscriptum` TEXT,
+    PRIMARY KEY (`id`,`locale`),
+    CONSTRAINT `order_status_i18n_FK_1`
+        FOREIGN KEY (`id`)
+        REFERENCES `order_status` (`id`)
+        ON DELETE CASCADE
+) ENGINE=InnoDB;
+
+-- ---------------------------------------------------------------------
+-- module_i18n
+-- ---------------------------------------------------------------------
+
+DROP TABLE IF EXISTS `module_i18n`;
+
+CREATE TABLE `module_i18n`
+(
+    `id` INTEGER NOT NULL,
+    `locale` VARCHAR(5) DEFAULT 'en_EN' NOT NULL,
+    `title` VARCHAR(255),
+    `description` LONGTEXT,
+    `chapo` TEXT,
+    `postscriptum` TEXT,
+    PRIMARY KEY (`id`,`locale`),
+    CONSTRAINT `module_i18n_FK_1`
+        FOREIGN KEY (`id`)
+        REFERENCES `module` (`id`)
+        ON DELETE CASCADE
+) ENGINE=InnoDB;
+
+-- ---------------------------------------------------------------------
+-- group_i18n
+-- ---------------------------------------------------------------------
+
+DROP TABLE IF EXISTS `group_i18n`;
+
+CREATE TABLE `group_i18n`
+(
+    `id` INTEGER NOT NULL,
+    `locale` VARCHAR(5) DEFAULT 'en_EN' NOT NULL,
+    `title` VARCHAR(255),
+    `description` LONGTEXT,
+    `chapo` TEXT,
+    `postscriptum` TEXT,
+    PRIMARY KEY (`id`,`locale`),
+    CONSTRAINT `group_i18n_FK_1`
+        FOREIGN KEY (`id`)
+        REFERENCES `group` (`id`)
+        ON DELETE CASCADE
+) ENGINE=InnoDB;
+
+-- ---------------------------------------------------------------------
+-- resource_i18n
+-- ---------------------------------------------------------------------
+
+DROP TABLE IF EXISTS `resource_i18n`;
+
+CREATE TABLE `resource_i18n`
+(
+    `id` INTEGER NOT NULL,
+    `locale` VARCHAR(5) DEFAULT 'en_EN' NOT NULL,
+    `title` VARCHAR(255),
+    `description` LONGTEXT,
+    `chapo` TEXT,
+    `postscriptum` TEXT,
+    PRIMARY KEY (`id`,`locale`),
+    CONSTRAINT `resource_i18n_FK_1`
+        FOREIGN KEY (`id`)
+        REFERENCES `resource` (`id`)
+        ON DELETE CASCADE
+) ENGINE=InnoDB;
+
+-- ---------------------------------------------------------------------
+-- message_i18n
+-- ---------------------------------------------------------------------
+
+DROP TABLE IF EXISTS `message_i18n`;
+
+CREATE TABLE `message_i18n`
+(
+    `id` INTEGER NOT NULL,
+    `locale` VARCHAR(5) DEFAULT 'en_EN' NOT NULL,
+    `title` TEXT,
+    `description` LONGTEXT,
+    `description_html` LONGTEXT,
+    PRIMARY KEY (`id`,`locale`),
+    CONSTRAINT `message_i18n_FK_1`
+        FOREIGN KEY (`id`)
+        REFERENCES `message` (`id`)
         ON DELETE CASCADE
 ) ENGINE=InnoDB;
 
