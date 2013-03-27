@@ -551,6 +551,7 @@ CREATE TABLE `lang`
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `title` VARCHAR(100),
     `code` VARCHAR(10),
+    `locale` VARCHAR(45),
     `url` VARCHAR(255),
     `by_default` TINYINT,
     `created_at` DATETIME,
@@ -902,7 +903,7 @@ CREATE TABLE `module`
 (
     `id` INTEGER NOT NULL,
     `code` VARCHAR(55) NOT NULL,
-    ` type` TINYINT NOT NULL,
+    `type` TINYINT NOT NULL,
     `activate` TINYINT,
     `position` INTEGER,
     `created_at` DATETIME,
@@ -1304,7 +1305,7 @@ DROP TABLE IF EXISTS `category_i18n`;
 CREATE TABLE `category_i18n`
 (
     `id` INTEGER NOT NULL,
-    `locale` VARCHAR(5) DEFAULT 'en_EN' NOT NULL,
+    `locale` VARCHAR(5) DEFAULT 'en_US' NOT NULL,
     `title` VARCHAR(255),
     `description` LONGTEXT,
     `chapo` TEXT,
@@ -1325,7 +1326,7 @@ DROP TABLE IF EXISTS `product_i18n`;
 CREATE TABLE `product_i18n`
 (
     `id` INTEGER NOT NULL,
-    `locale` VARCHAR(5) DEFAULT 'en_EN' NOT NULL,
+    `locale` VARCHAR(5) DEFAULT 'en_US' NOT NULL,
     `title` VARCHAR(255),
     `description` LONGTEXT,
     `chapo` TEXT,
@@ -1346,7 +1347,7 @@ DROP TABLE IF EXISTS `country_i18n`;
 CREATE TABLE `country_i18n`
 (
     `id` INTEGER NOT NULL,
-    `locale` VARCHAR(5) DEFAULT 'en_EN' NOT NULL,
+    `locale` VARCHAR(5) DEFAULT 'en_US' NOT NULL,
     `title` VARCHAR(255),
     `description` LONGTEXT,
     `chapo` TEXT,
@@ -1367,7 +1368,7 @@ DROP TABLE IF EXISTS `tax_i18n`;
 CREATE TABLE `tax_i18n`
 (
     `id` INTEGER NOT NULL,
-    `locale` VARCHAR(5) DEFAULT 'en_EN' NOT NULL,
+    `locale` VARCHAR(5) DEFAULT 'en_US' NOT NULL,
     `title` VARCHAR(255),
     `description` TEXT,
     PRIMARY KEY (`id`,`locale`),
@@ -1386,7 +1387,7 @@ DROP TABLE IF EXISTS `tax_rule_i18n`;
 CREATE TABLE `tax_rule_i18n`
 (
     `id` INTEGER NOT NULL,
-    `locale` VARCHAR(5) DEFAULT 'en_EN' NOT NULL,
+    `locale` VARCHAR(5) DEFAULT 'en_US' NOT NULL,
     PRIMARY KEY (`id`,`locale`),
     CONSTRAINT `tax_rule_i18n_FK_1`
         FOREIGN KEY (`id`)
@@ -1403,7 +1404,7 @@ DROP TABLE IF EXISTS `feature_i18n`;
 CREATE TABLE `feature_i18n`
 (
     `id` INTEGER NOT NULL,
-    `locale` VARCHAR(5) DEFAULT 'en_EN' NOT NULL,
+    `locale` VARCHAR(5) DEFAULT 'en_US' NOT NULL,
     `title` VARCHAR(255),
     `description` LONGTEXT,
     `chapo` TEXT,
@@ -1424,7 +1425,7 @@ DROP TABLE IF EXISTS `feature_av_i18n`;
 CREATE TABLE `feature_av_i18n`
 (
     `id` INTEGER NOT NULL,
-    `locale` VARCHAR(5) DEFAULT 'en_EN' NOT NULL,
+    `locale` VARCHAR(5) DEFAULT 'en_US' NOT NULL,
     `title` VARCHAR(255),
     `description` LONGTEXT,
     `chapo` TEXT,
@@ -1445,7 +1446,7 @@ DROP TABLE IF EXISTS `attribute_i18n`;
 CREATE TABLE `attribute_i18n`
 (
     `id` INTEGER NOT NULL,
-    `locale` VARCHAR(5) DEFAULT 'en_EN' NOT NULL,
+    `locale` VARCHAR(5) DEFAULT 'en_US' NOT NULL,
     `title` VARCHAR(255),
     `description` LONGTEXT,
     `chapo` TEXT,
@@ -1466,7 +1467,7 @@ DROP TABLE IF EXISTS `attribute_av_i18n`;
 CREATE TABLE `attribute_av_i18n`
 (
     `id` INTEGER NOT NULL,
-    `locale` VARCHAR(5) DEFAULT 'en_EN' NOT NULL,
+    `locale` VARCHAR(5) DEFAULT 'en_US' NOT NULL,
     `title` VARCHAR(255),
     `description` LONGTEXT,
     `chapo` TEXT,
@@ -1487,7 +1488,7 @@ DROP TABLE IF EXISTS `config_i18n`;
 CREATE TABLE `config_i18n`
 (
     `id` INTEGER NOT NULL,
-    `locale` VARCHAR(5) DEFAULT 'en_EN' NOT NULL,
+    `locale` VARCHAR(5) DEFAULT 'en_US' NOT NULL,
     `title` VARCHAR(255),
     `description` LONGTEXT,
     `chapo` TEXT,
@@ -1508,7 +1509,7 @@ DROP TABLE IF EXISTS `customer_title_i18n`;
 CREATE TABLE `customer_title_i18n`
 (
     `id` INTEGER NOT NULL,
-    `locale` VARCHAR(5) DEFAULT 'en_EN' NOT NULL,
+    `locale` VARCHAR(5) DEFAULT 'en_US' NOT NULL,
     `short` VARCHAR(10),
     `long` VARCHAR(45),
     PRIMARY KEY (`id`,`locale`),
@@ -1527,7 +1528,7 @@ DROP TABLE IF EXISTS `folder_i18n`;
 CREATE TABLE `folder_i18n`
 (
     `id` INTEGER NOT NULL,
-    `locale` VARCHAR(5) DEFAULT 'en_EN' NOT NULL,
+    `locale` VARCHAR(5) DEFAULT 'en_US' NOT NULL,
     `title` VARCHAR(255),
     `description` LONGTEXT,
     `chapo` TEXT,
@@ -1548,7 +1549,7 @@ DROP TABLE IF EXISTS `content_i18n`;
 CREATE TABLE `content_i18n`
 (
     `id` INTEGER NOT NULL,
-    `locale` VARCHAR(5) DEFAULT 'en_EN' NOT NULL,
+    `locale` VARCHAR(5) DEFAULT 'en_US' NOT NULL,
     `title` VARCHAR(255),
     `description` LONGTEXT,
     `chapo` TEXT,
@@ -1569,7 +1570,7 @@ DROP TABLE IF EXISTS `image_i18n`;
 CREATE TABLE `image_i18n`
 (
     `id` INTEGER NOT NULL,
-    `locale` VARCHAR(5) DEFAULT 'en_EN' NOT NULL,
+    `locale` VARCHAR(5) DEFAULT 'en_US' NOT NULL,
     `title` VARCHAR(255),
     `description` LONGTEXT,
     `chapo` TEXT,
@@ -1590,7 +1591,7 @@ DROP TABLE IF EXISTS `document_i18n`;
 CREATE TABLE `document_i18n`
 (
     `id` INTEGER NOT NULL,
-    `locale` VARCHAR(5) DEFAULT 'en_EN' NOT NULL,
+    `locale` VARCHAR(5) DEFAULT 'en_US' NOT NULL,
     `title` VARCHAR(255),
     `description` LONGTEXT,
     `chapo` TEXT,
@@ -1611,7 +1612,7 @@ DROP TABLE IF EXISTS `order_status_i18n`;
 CREATE TABLE `order_status_i18n`
 (
     `id` INTEGER NOT NULL,
-    `locale` VARCHAR(5) DEFAULT 'en_EN' NOT NULL,
+    `locale` VARCHAR(5) DEFAULT 'en_US' NOT NULL,
     `title` VARCHAR(255),
     `description` LONGTEXT,
     `chapo` TEXT,
@@ -1632,7 +1633,7 @@ DROP TABLE IF EXISTS `module_i18n`;
 CREATE TABLE `module_i18n`
 (
     `id` INTEGER NOT NULL,
-    `locale` VARCHAR(5) DEFAULT 'en_EN' NOT NULL,
+    `locale` VARCHAR(5) DEFAULT 'en_US' NOT NULL,
     `title` VARCHAR(255),
     `description` LONGTEXT,
     `chapo` TEXT,
@@ -1653,7 +1654,7 @@ DROP TABLE IF EXISTS `group_i18n`;
 CREATE TABLE `group_i18n`
 (
     `id` INTEGER NOT NULL,
-    `locale` VARCHAR(5) DEFAULT 'en_EN' NOT NULL,
+    `locale` VARCHAR(5) DEFAULT 'en_US' NOT NULL,
     `title` VARCHAR(255),
     `description` LONGTEXT,
     `chapo` TEXT,
@@ -1674,7 +1675,7 @@ DROP TABLE IF EXISTS `resource_i18n`;
 CREATE TABLE `resource_i18n`
 (
     `id` INTEGER NOT NULL,
-    `locale` VARCHAR(5) DEFAULT 'en_EN' NOT NULL,
+    `locale` VARCHAR(5) DEFAULT 'en_US' NOT NULL,
     `title` VARCHAR(255),
     `description` LONGTEXT,
     `chapo` TEXT,
@@ -1695,7 +1696,7 @@ DROP TABLE IF EXISTS `message_i18n`;
 CREATE TABLE `message_i18n`
 (
     `id` INTEGER NOT NULL,
-    `locale` VARCHAR(5) DEFAULT 'en_EN' NOT NULL,
+    `locale` VARCHAR(5) DEFAULT 'en_US' NOT NULL,
     `title` TEXT,
     `description` LONGTEXT,
     `description_html` LONGTEXT,
