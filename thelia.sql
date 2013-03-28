@@ -901,7 +901,7 @@ DROP TABLE IF EXISTS `module`;
 
 CREATE TABLE `module`
 (
-    `id` INTEGER NOT NULL,
+    `id` INTEGER NOT NULL AUTO_INCREMENT,
     `code` VARCHAR(55) NOT NULL,
     `type` TINYINT NOT NULL,
     `activate` TINYINT,
