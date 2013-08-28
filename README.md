@@ -9,17 +9,20 @@ How to generate Model and SQL files ?
 Once the schema.xml generated via MySQL Workbench - plugin PropelUtility.
 Copy/Past the schema.xml file to the folder /local/config/
 Then run in command line :
-$ cd local/config/
+``$ cd local/config/``
 
 Build Models
-$ ../../bin/propel build -v --output-dir=../../core/lib/
+``$ ../../bin/propel build -v --output-dir=../../core/lib/``
+
 Build SQL CREATE TABLE file
-$ ../../bin/propel sql:build -v --output-dir=../../install/
+``$ ../../bin/propel sql:build -v --output-dir=../../install/``
+
 Insert SQL
-$ ../../bin/propel insert-sql -v --output-dir=../../install/
+``$ ../../bin/propel insert-sql -v --output-dir=../../install/``
+
 // Not working : insert manually
-install/thelia.sql
-install/insert.sql
+``install/thelia.sql``
+``install/insert.sql``
 
 Install Fixtures
-$ php ../../install/faker.php
+``$ php ../../install/faker.php``
