@@ -26,3 +26,6 @@ Insert SQL
 
 Install Fixtures
 ``$ php ../../install/faker.php``
+
+Create admin
+``$ php Thelia thelia:create-admin``
