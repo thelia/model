@@ -5,27 +5,23 @@ Mysql workbench and sql files.
 
 Thelia 2 use Propel ORM. If you want to see propel behavior configuration install [PropelUtility](https://github.com/mazenovi/PropelUtility)
 
-How to generate Model and SQL files ?
-Once the schema.xml generated via MySQL Workbench - plugin PropelUtility.
-Copy/Past the schema.xml file to the folder /local/config/
-Then run in command line :
-``$ cd local/config/``
+Thelia allows you to generate your sql files, insert it install fixtures and create an admin for you.
 
-Build Models
-``$ ../../bin/propel build -v --output-dir=../../core/lib/``
+First, edit your ```local/config/schema.xml``` file.
 
-Build SQL CREATE TABLE file
-``$ ../../bin/propel sql:build -v --output-dir=../../install/``
+Then be sure that your already have a configured database, if not, run:
+```bash
+$ php Thelia thelia:install
+```
 
-Insert SQL
-``$ ../../bin/propel insert-sql -v --output-dir=../../install/``
+After, your may use the reset_install script that will do the work for you.
+If you work on Linux/Mac OS:
+```bash
+$ ./reset_install.sh
+```
+If you work on Windows:
+```batch
+C:\path-to-thelia> reset_install.bat
+```
 
-// Not working : insert manually
-``install/thelia.sql``
-``install/insert.sql``
-
-Install Fixtures
-``$ php ../../install/faker.php``
-
-Create admin
-``$ php Thelia thelia:create-admin``
+You finally have an updated database, with a new admin: thelia2 with the password: thelia2
