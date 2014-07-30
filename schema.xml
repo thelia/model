@@ -1448,7 +1448,7 @@
     <column defaultValue="NULL" name="chapo" type="LONGVARCHAR" />
     <column defaultValue="NULL" name="postscriptum" type="LONGVARCHAR" />
     <column name="position" type="INTEGER" />
-    <column defaultValue="NULL" name="logo_image_id" primaryKey="true" required="true" type="INTEGER" />
+    <column defaultValue="NULL" name="logo_image_id" type="INTEGER" />
     <column defaultValue="NULL" name="meta_title" size="255" type="VARCHAR" />
     <column defaultValue="NULL" name="meta_description" type="LONGVARCHAR" />
     <column defaultValue="NULL" name="meta_keywords" type="LONGVARCHAR" />
@@ -1465,7 +1465,7 @@
   </table>
   <table name="brand_document" namespace="Thelia\Model">
     <column autoIncrement="true" name="id" primaryKey="true" required="true" type="INTEGER" />
-    <column name="brand_id" primaryKey="true" required="true" type="INTEGER" />
+    <column name="brand_id" required="true" type="INTEGER" />
     <column name="file" required="true" size="255" type="VARCHAR" />
     <column defaultValue="NULL" name="position" type="INTEGER" />
     <column defaultValue="NULL" name="title" size="255" type="VARCHAR" />
@@ -1485,7 +1485,7 @@
   </table>
   <table name="brand_image" namespace="Thelia\Model">
     <column autoIncrement="true" name="id" primaryKey="true" required="true" type="INTEGER" />
-    <column name="brand_id" primaryKey="true" required="true" type="INTEGER" />
+    <column name="brand_id" required="true" type="INTEGER" />
     <column name="file" required="true" size="255" type="VARCHAR" />
     <column name="position" type="INTEGER" />
     <column defaultValue="NULL" name="title" size="255" type="VARCHAR" />
@@ -1533,7 +1533,9 @@
       <index-column name="start_date" />
       <index-column name="end_date" />
     </index>
-    <index name="idx_sales_active" />
+    <index name="idx_sales_active">
+      <index-column name="active" />
+    </index>
     <behavior name="i18n">
       <parameter name="i18n_columns" value="title, description, chapo, postscriptum,sale_label" />
     </behavior>
@@ -1556,7 +1558,7 @@
   <table name="sale_product" namespace="Thelia\Model">
     <column name="sales_id" primaryKey="true" required="true" type="INTEGER" />
     <column name="product_id" primaryKey="true" required="true" type="INTEGER" />
-    <column defaultValue="NULL" name="attribute_av_id" type="INTEGER" />
+    <column defaultValue="NULL" name="attribute_av_id" primaryKey="true" required="true" type="INTEGER" />
     <foreign-key foreignTable="sales" name="fk_sale_product_sales_id" onDelete="CASCADE" onUpdate="RESTRICT">
       <reference foreign="id" local="sales_id" />
     </foreign-key>
