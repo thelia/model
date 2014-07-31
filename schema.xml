@@ -1516,7 +1516,7 @@
     </index>
     <behavior name="timestampable" />
   </table>
-  <table name="sales" namespace="Thelia\Model">
+  <table name="sale" namespace="Thelia\Model">
     <column autoIncrement="true" name="id" primaryKey="true" required="true" type="INTEGER" />
     <column defaultValue="NULL" name="title" size="255" type="VARCHAR" />
     <column defaultValue="NULL" name="sale_label" size="255" type="VARCHAR" />
@@ -1545,7 +1545,7 @@
     <column name="sales_id" primaryKey="true" required="true" type="INTEGER" />
     <column name="currency_id" primaryKey="true" required="true" type="INTEGER" />
     <column defaultValue="0" name="price_offset_value" type="FLOAT" />
-    <foreign-key foreignTable="sales" name="fk_sale_offset_currency_sales_id" onDelete="CASCADE">
+    <foreign-key foreignTable="sale" name="fk_sale_offset_currency_sales_id" onDelete="CASCADE">
       <reference foreign="id" local="sales_id" />
     </foreign-key>
     <foreign-key foreignTable="currency" name="fk_sale_offset_currency_currency_id" onDelete="CASCADE" onUpdate="RESTRICT">
@@ -1559,7 +1559,7 @@
     <column name="sales_id" primaryKey="true" required="true" type="INTEGER" />
     <column name="product_id" primaryKey="true" required="true" type="INTEGER" />
     <column defaultValue="NULL" name="attribute_av_id" primaryKey="true" required="true" type="INTEGER" />
-    <foreign-key foreignTable="sales" name="fk_sale_product_sales_id" onDelete="CASCADE" onUpdate="RESTRICT">
+    <foreign-key foreignTable="sale" name="fk_sale_product_sales_id" onDelete="CASCADE" onUpdate="RESTRICT">
       <reference foreign="id" local="sales_id" />
     </foreign-key>
     <foreign-key foreignTable="product" name="fk_sale_product_product_id" onDelete="CASCADE" onUpdate="RESTRICT">
