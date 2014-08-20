@@ -1563,7 +1563,7 @@
   <table name="sale_product" namespace="Thelia\Model">
     <column name="sales_id" primaryKey="true" required="true" type="INTEGER" />
     <column name="product_id" primaryKey="true" required="true" type="INTEGER" />
-    <column defaultValue="NULL" name="attribute_av_id" required="true" type="INTEGER" />
+    <column defaultValue="NULL" name="attribute_av_id" type="INTEGER" />
     <foreign-key foreignTable="sale" name="fk_sale_product_sales_id" onDelete="CASCADE" onUpdate="RESTRICT">
       <reference foreign="id" local="sales_id" />
     </foreign-key>
