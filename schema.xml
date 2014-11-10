@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <database defaultIdMethod="native" name="thelia">
   <vendor type="mysql">
     <parameter name="Engine" value="InnoDB"/>
@@ -47,6 +48,7 @@
     <column name="meta_title" size="255" type="VARCHAR" />
     <column name="meta_description" type="LONGVARCHAR" />
     <column name="meta_keywords" type="LONGVARCHAR" />
+    <column defaultValue="0" name="virtual" required="true" type="TINYINT" />
     <foreign-key foreignTable="tax_rule" name="fk_product_tax_rule_id" onDelete="RESTRICT" onUpdate="RESTRICT">
       <reference foreign="id" local="tax_rule_id" />
     </foreign-key>
@@ -405,6 +407,10 @@
       <unique-column name="ref" />
     </unique>
     <behavior name="timestampable" />
+    <behavior name="versionable">
+      <parameter name="log_created_at" value="true" />
+      <parameter name="log_created_by" value="true" />
+    </behavior>
   </table>
   <table name="address" namespace="Thelia\Model">
     <column autoIncrement="true" name="id" primaryKey="true" required="true" type="INTEGER" />
@@ -518,6 +524,7 @@
     <column autoIncrement="true" name="id" primaryKey="true" required="true" type="INTEGER" />
     <column name="product_id" required="true" type="INTEGER" />
     <column name="file" required="true" size="255" type="VARCHAR" />
+    <column defaultValue="1" name="visible" required="true" type="TINYINT" />
     <column name="position" type="INTEGER" />
     <column name="title" size="255" type="VARCHAR" />
     <column name="description" type="CLOB" />
@@ -542,6 +549,7 @@
     <column autoIncrement="true" name="id" primaryKey="true" required="true" type="INTEGER" />
     <column name="product_id" required="true" type="INTEGER" />
     <column name="file" required="true" size="255" type="VARCHAR" />
+    <column defaultValue="1" name="visible" required="true" type="TINYINT" />
     <column name="position" type="INTEGER" />
     <column name="title" size="255" type="VARCHAR" />
     <column name="description" type="CLOB" />
@@ -576,6 +584,7 @@
     <column name="delivery_module_id" required="true" type="INTEGER" />
     <column name="status_id" required="true" type="INTEGER" />
     <column name="lang_id" required="true" type="INTEGER" />
+    <column name="cart_id" required="true" type="INTEGER" />
     <foreign-key foreignTable="currency" name="fk_order_currency_id" onDelete="RESTRICT" onUpdate="RESTRICT">
       <reference foreign="id" local="currency_id" />
     </foreign-key>
@@ -599,6 +608,9 @@
     </foreign-key>
     <foreign-key foreignTable="lang" name="fk_order_lang_id" onDelete="RESTRICT" onUpdate="RESTRICT">
       <reference foreign="id" local="lang_id" />
+    </foreign-key>
+    <foreign-key foreignTable="cart" name="fk_order_cart_id">
+      <reference foreign="id" local="cart_id" />
     </foreign-key>
     <index name="idx_order_currency_id">
       <index-column name="currency_id" />
@@ -626,6 +638,9 @@
     </index>
     <index name="fk_order_lang_id_idx">
       <index-column name="lang_id" />
+    </index>
+    <index name="idx_order_cart_fk">
+      <index-column name="cart_id" />
     </index>
     <behavior name="timestampable" />
     <behavior name="versionable">
@@ -684,6 +699,7 @@
     <column name="order_id" required="true" type="INTEGER" />
     <column name="product_ref" required="true" size="255" type="VARCHAR" />
     <column name="product_sale_elements_ref" required="true" size="255" type="VARCHAR" />
+    <column name="product_sale_elements_id" type="INTEGER" />
     <column name="title" size="255" type="VARCHAR" />
     <column name="chapo" type="LONGVARCHAR" />
     <column name="description" type="CLOB" />
@@ -698,6 +714,8 @@
     <column name="tax_rule_title" size="255" type="VARCHAR" />
     <column name="tax_rule_description" type="CLOB" />
     <column description="not managed yet" name="parent" type="INTEGER" />
+    <column defaultValue="0" name="virtual" required="true" type="TINYINT" />
+    <column name="virtual_document" size="255" type="VARCHAR" />
     <foreign-key foreignTable="order" name="fk_order_product_order_id" onDelete="CASCADE" onUpdate="RESTRICT">
       <reference foreign="id" local="order_id" />
     </foreign-key>
@@ -743,9 +761,9 @@
   <table name="module" namespace="Thelia\Model">
     <column autoIncrement="true" name="id" primaryKey="true" required="true" type="INTEGER" />
     <column name="code" required="true" size="55" type="VARCHAR" />
-    <column name="version" required="true" size="10" type="VARCHAR" />
+    <column defaultValue="" name="version" required="true" size="10" type="VARCHAR" />
     <column name="type" required="true" type="TINYINT" />
-    <column defaultValue="'classic'" name="category" required="true" size="50" type="VARCHAR" />
+    <column defaultValue="classic" name="category" size="50" type="VARCHAR" required="true" />
     <column name="activate" type="TINYINT" />
     <column name="position" type="INTEGER" />
     <column name="title" size="255" type="VARCHAR" />
@@ -1100,6 +1118,7 @@
     <column autoIncrement="true" name="id" primaryKey="true" required="true" type="INTEGER" />
     <column name="category_id" required="true" type="INTEGER" />
     <column name="file" required="true" size="255" type="VARCHAR" />
+    <column defaultValue="1" name="visible" required="true" type="TINYINT" />
     <column name="position" type="INTEGER" />
     <column name="title" size="255" type="VARCHAR" />
     <column name="description" type="CLOB" />
@@ -1124,6 +1143,7 @@
     <column autoIncrement="true" name="id" primaryKey="true" required="true" type="INTEGER" />
     <column name="folder_id" required="true" type="INTEGER" />
     <column name="file" required="true" size="255" type="VARCHAR" />
+    <column defaultValue="1" name="visible" required="true" type="TINYINT" />
     <column name="position" type="INTEGER" />
     <column name="title" size="255" type="VARCHAR" />
     <column name="description" type="CLOB" />
@@ -1148,6 +1168,7 @@
     <column autoIncrement="true" name="id" primaryKey="true" required="true" type="INTEGER" />
     <column name="content_id" required="true" type="INTEGER" />
     <column name="file" required="true" size="255" type="VARCHAR" />
+    <column defaultValue="1" name="visible" required="true" type="TINYINT" />
     <column name="position" type="INTEGER" />
     <column name="title" size="255" type="VARCHAR" />
     <column name="description" type="CLOB" />
@@ -1172,6 +1193,7 @@
     <column autoIncrement="true" name="id" primaryKey="true" required="true" type="INTEGER" />
     <column name="category_id" required="true" type="INTEGER" />
     <column name="file" required="true" size="255" type="VARCHAR" />
+    <column defaultValue="1" name="visible" required="true" type="TINYINT" />
     <column name="position" type="INTEGER" />
     <column name="title" size="255" type="VARCHAR" />
     <column name="description" type="CLOB" />
@@ -1192,6 +1214,7 @@
     <column autoIncrement="true" name="id" primaryKey="true" required="true" type="INTEGER" />
     <column name="content_id" required="true" type="INTEGER" />
     <column name="file" required="true" size="255" type="VARCHAR" />
+    <column defaultValue="1" name="visible" required="true" type="TINYINT" />
     <column name="position" type="INTEGER" />
     <column name="title" size="255" type="VARCHAR" />
     <column name="description" type="CLOB" />
@@ -1212,6 +1235,7 @@
     <column autoIncrement="true" name="id" primaryKey="true" required="true" type="INTEGER" />
     <column name="folder_id" required="true" type="INTEGER" />
     <column name="file" required="true" size="255" type="VARCHAR" />
+    <column defaultValue="1" name="visible" required="true" type="TINYINT" />
     <column name="position" type="INTEGER" />
     <column name="title" size="255" type="VARCHAR" />
     <column name="description" type="CLOB" />
@@ -1308,6 +1332,7 @@
     <column autoIncrement="true" name="id" primaryKey="true" required="true" type="INTEGER" />
     <column name="module_id" required="true" type="INTEGER" />
     <column name="file" required="true" size="255" type="VARCHAR" />
+    <column defaultValue="1" name="visible" required="true" type="TINYINT" />
     <column name="position" type="INTEGER" />
     <column name="title" size="255" type="VARCHAR" />
     <column name="description" type="CLOB" />
@@ -1473,6 +1498,7 @@
     <column autoIncrement="true" name="id" primaryKey="true" required="true" type="INTEGER" />
     <column name="brand_id" required="true" type="INTEGER" />
     <column name="file" required="true" size="255" type="VARCHAR" />
+    <column defaultValue="1" name="visible" required="true" type="TINYINT" />
     <column defaultValue="NULL" name="position" type="INTEGER" />
     <column defaultValue="NULL" name="title" size="255" type="VARCHAR" />
     <column defaultValue="NULL" name="description" type="CLOB" />
@@ -1493,6 +1519,7 @@
     <column autoIncrement="true" name="id" primaryKey="true" required="true" type="INTEGER" />
     <column name="brand_id" required="true" type="INTEGER" />
     <column name="file" required="true" size="255" type="VARCHAR" />
+    <column defaultValue="1" name="visible" required="true" type="TINYINT" />
     <column name="position" type="INTEGER" />
     <column defaultValue="NULL" name="title" size="255" type="VARCHAR" />
     <column defaultValue="NULL" name="description" type="CLOB" />
@@ -1548,11 +1575,11 @@
     <behavior name="timestampable" />
   </table>
   <table name="sale_offset_currency" namespace="Thelia\Model">
-    <column name="sales_id" primaryKey="true" required="true" type="INTEGER" />
+    <column name="sale_id" primaryKey="true" required="true" type="INTEGER" />
     <column name="currency_id" primaryKey="true" required="true" type="INTEGER" />
     <column defaultValue="0" name="price_offset_value" type="FLOAT" />
     <foreign-key foreignTable="sale" name="fk_sale_offset_currency_sales_id" onDelete="CASCADE">
-      <reference foreign="id" local="sales_id" />
+      <reference foreign="id" local="sale_id" />
     </foreign-key>
     <foreign-key foreignTable="currency" name="fk_sale_offset_currency_currency_id" onDelete="CASCADE" onUpdate="RESTRICT">
       <reference foreign="id" local="currency_id" />
@@ -1562,11 +1589,12 @@
     </index>
   </table>
   <table name="sale_product" namespace="Thelia\Model">
-    <column name="sales_id" primaryKey="true" required="true" type="INTEGER" />
-    <column name="product_id" primaryKey="true" required="true" type="INTEGER" />
+    <column autoIncrement="true" name="id" primaryKey="true" required="true" type="INTEGER" />
+    <column name="sale_id" required="true" type="INTEGER" />
+    <column name="product_id" required="true" type="INTEGER" />
     <column defaultValue="NULL" name="attribute_av_id" type="INTEGER" />
     <foreign-key foreignTable="sale" name="fk_sale_product_sales_id" onDelete="CASCADE" onUpdate="RESTRICT">
-      <reference foreign="id" local="sales_id" />
+      <reference foreign="id" local="sale_id" />
     </foreign-key>
     <foreign-key foreignTable="product" name="fk_sale_product_product_id" onDelete="CASCADE" onUpdate="RESTRICT">
       <reference foreign="id" local="product_id" />
@@ -1574,14 +1602,14 @@
     <foreign-key foreignTable="attribute_av" name="fk_sale_product_attribute_av_id" onDelete="CASCADE" onUpdate="RESTRICT">
       <reference foreign="id" local="attribute_av_id" />
     </foreign-key>
-    <index name="fk_sale_product_product1_idx">
+    <index name="fk_sale_product_product_idx">
       <index-column name="product_id" />
     </index>
-    <index name="fk_sale_product_attribute_av1_idx">
+    <index name="fk_sale_product_attribute_av_idx">
       <index-column name="attribute_av_id" />
     </index>
     <index name="idx_sale_product_sales_id_product_id">
-      <index-column name="sales_id" />
+      <index-column name="sale_id" />
       <index-column name="product_id" />
     </index>
   </table>
@@ -1688,5 +1716,85 @@
     <index name="fk_pse_product_document_product_sale_elem_idx">
       <index-column name="product_sale_elements_id" />
     </index>
+  </table>
+  <table name="hook" namespace="Thelia\Model">
+    <column autoIncrement="true" name="id" primaryKey="true" required="true" type="INTEGER" />
+    <column name="code" required="true" size="255" type="VARCHAR" />
+    <column name="type" type="TINYINT" />
+    <column name="by_module" type="BOOLEAN" />
+    <column name="native" type="BOOLEAN" />
+    <column name="activate" type="BOOLEAN" />
+    <column name="block" type="BOOLEAN" />
+    <column name="position" type="INTEGER" />
+    <column name="title" size="255" type="VARCHAR" />
+    <column name="description" type="CLOB" />
+    <column name="chapo" type="LONGVARCHAR" />
+    <index name="idx_module_activate">
+      <index-column name="activate" />
+    </index>
+    <unique name="code_UNIQUE">
+      <unique-column name="code" />
+      <unique-column name="type" />
+    </unique>
+    <behavior name="timestampable" />
+    <behavior name="i18n">
+      <parameter name="i18n_columns" value="title,description,chapo" />
+    </behavior>
+  </table>
+  <table name="module_hook" namespace="Thelia\Model">
+    <column autoIncrement="true" name="id" primaryKey="true" required="true" type="INTEGER" />
+    <column name="module_id" required="true" type="INTEGER" />
+    <column name="hook_id" required="true" type="INTEGER" />
+    <column name="classname" size="255" type="VARCHAR" />
+    <column name="method" size="255" type="VARCHAR" />
+    <column name="active" required="true" type="BOOLEAN" />
+    <column name="hook_active" required="true" type="BOOLEAN" />
+    <column name="module_active" required="true" type="BOOLEAN" />
+    <column name="position" required="true" type="INTEGER" />
+    <foreign-key foreignTable="module" name="fk_module_hook_module_id" onDelete="CASCADE" onUpdate="RESTRICT">
+      <reference foreign="id" local="module_id" />
+    </foreign-key>
+    <foreign-key foreignTable="hook" name="fk_module_hook_hook_id" onDelete="CASCADE" onUpdate="RESTRICT">
+      <reference foreign="id" local="hook_id" />
+    </foreign-key>
+    <index name="idx_module_hook_active">
+      <index-column name="active" />
+    </index>
+    <index name="fk_module_hook_module_id_idx">
+      <index-column name="module_id" />
+    </index>
+    <index name="fk_module_hook_hook_id_idx">
+      <index-column name="hook_id" />
+    </index>
+  </table>
+  <table name="meta_data" namespace="Thelia\Model">
+    <column autoIncrement="true" name="id" primaryKey="true" required="true" type="INTEGER" />
+    <column name="meta_key" required="true" size="100" type="VARCHAR" />
+    <column name="element_key" required="true" size="100" type="VARCHAR" />
+    <column name="element_id" required="true" type="INTEGER" />
+    <column name="is_serialized" required="true" type="BOOLEAN" />
+    <column name="value" required="true" type="CLOB" />
+    <index name="meta_data_key_element_idx">
+      <index-column name="meta_key" />
+      <index-column name="element_key" />
+      <index-column name="element_id" />
+    </index>
+  </table>
+  <table name="module_config" namespace="Thelia\Model">
+    <column autoIncrement="true" name="id" primaryKey="true" required="true" type="INTEGER" />
+    <column name="module_id" required="true" type="INTEGER" />
+    <column name="name" required="true" size="255" type="VARCHAR" />
+    <column name="value" type="LONGVARCHAR" />
+    <foreign-key foreignTable="module" name="fk_module_config_module_id" onDelete="CASCADE" onUpdate="RESTRICT">
+      <reference foreign="id" local="module_id" />
+    </foreign-key>
+    <index name="idx_module_id_name">
+      <index-column name="module_id" />
+      <index-column name="name" />
+    </index>
+    <behavior name="i18n">
+      <parameter name="i18n_columns" value="value" />
+    </behavior>
+    <behavior name="timestampable" />
   </table>
 </database>
