@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <database defaultIdMethod="native" name="thelia">
   <vendor type="mysql">
     <parameter name="Engine" value="InnoDB"/>
@@ -761,9 +760,9 @@
   <table name="module" namespace="Thelia\Model">
     <column autoIncrement="true" name="id" primaryKey="true" required="true" type="INTEGER" />
     <column name="code" required="true" size="55" type="VARCHAR" />
-    <column defaultValue="" name="version" required="true" size="10" type="VARCHAR" />
+    <column name="version" required="true" size="10" type="VARCHAR" defaultValue=""/>
     <column name="type" required="true" type="TINYINT" />
-    <column defaultValue="classic" name="category" size="50" type="VARCHAR" required="true" />
+    <column defaultValue="classic" name="category" required="true" size="50" type="VARCHAR" />
     <column name="activate" type="TINYINT" />
     <column name="position" type="INTEGER" />
     <column name="title" size="255" type="VARCHAR" />
@@ -1795,6 +1794,19 @@
     <behavior name="i18n">
       <parameter name="i18n_columns" value="value" />
     </behavior>
+    <behavior name="timestampable" />
+  </table>
+  <table name="api">
+    <column autoIncrement="true" name="id" primaryKey="true" required="true" type="INTEGER" />
+    <column name="label" size="255" type="VARCHAR" />
+    <column name="api_key" size="100" type="VARCHAR" />
+    <column name="profile_id" type="INTEGER" />
+    <foreign-key foreignTable="profile" name="fk_api_profile_id">
+      <reference foreign="id" local="profile_id" />
+    </foreign-key>
+    <index name="idx_api_profile_id">
+      <index-column name="profile_id" />
+    </index>
     <behavior name="timestampable" />
   </table>
 </database>
