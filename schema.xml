@@ -6,7 +6,7 @@
   </vendor>
   <table name="category" namespace="Thelia\Model">
     <column autoIncrement="true" name="id" primaryKey="true" required="true" type="INTEGER" />
-    <column name="parent" type="INTEGER" />
+    <column defaultValue="0" name="parent" required="true" type="INTEGER" />
     <column name="visible" required="true" type="TINYINT" />
     <column name="position" required="true" type="INTEGER" />
     <column name="title" size="255" type="VARCHAR" />
@@ -480,7 +480,7 @@
   </table>
   <table name="folder" namespace="Thelia\Model">
     <column autoIncrement="true" name="id" primaryKey="true" required="true" type="INTEGER" />
-    <column name="parent" required="true" type="INTEGER" />
+    <column defaultValue="0" name="parent" required="true" type="INTEGER" />
     <column name="visible" type="TINYINT" />
     <column name="position" type="INTEGER" />
     <column name="title" size="255" type="VARCHAR" />
@@ -579,6 +579,8 @@
     <column description="the invoice reference" name="invoice_ref" size="100" type="VARCHAR" />
     <column name="discount" type="FLOAT" />
     <column name="postage" required="true" type="FLOAT" />
+    <column defaultValue="0" name="postage_tax" required="true" type="FLOAT" />
+    <column name="postage_tax_rule_title" size="255" type="VARCHAR" />
     <column name="payment_module_id" required="true" type="INTEGER" />
     <column name="delivery_module_id" required="true" type="INTEGER" />
     <column name="status_id" required="true" type="INTEGER" />
@@ -760,7 +762,7 @@
   <table name="module" namespace="Thelia\Model">
     <column autoIncrement="true" name="id" primaryKey="true" required="true" type="INTEGER" />
     <column name="code" required="true" size="55" type="VARCHAR" />
-    <column name="version" required="true" size="10" type="VARCHAR" defaultValue=""/>
+    <column name="version" required="true" size="10" type="VARCHAR" default=""/>
     <column name="type" required="true" type="TINYINT" />
     <column defaultValue="classic" name="category" required="true" size="50" type="VARCHAR" />
     <column name="activate" type="TINYINT" />
@@ -1000,6 +1002,7 @@
     <column name="admin_firstname" size="255" type="VARCHAR" />
     <column name="admin_lastname" size="255" type="VARCHAR" />
     <column name="resource" size="255" type="VARCHAR" />
+    <column name="resource_id" type="INTEGER" />
     <column name="action" size="255" type="VARCHAR" />
     <column name="message" type="LONGVARCHAR" />
     <column name="request" type="CLOB" />
@@ -1778,6 +1781,7 @@
       <index-column name="element_key" />
       <index-column name="element_id" />
     </index>
+    <behavior name="timestampable" />
   </table>
   <table name="module_config" namespace="Thelia\Model">
     <column autoIncrement="true" name="id" primaryKey="true" required="true" type="INTEGER" />
@@ -1796,7 +1800,7 @@
     </behavior>
     <behavior name="timestampable" />
   </table>
-  <table name="api">
+  <table name="api" namespace="Thelia\Model">
     <column autoIncrement="true" name="id" primaryKey="true" required="true" type="INTEGER" />
     <column name="label" size="255" type="VARCHAR" />
     <column name="api_key" size="100" type="VARCHAR" />
