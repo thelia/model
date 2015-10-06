@@ -1,27 +1,37 @@
-THELIA 2 DATABASE STRUCTURE
-==================
+# Thelia 2 MySQL Workbench database model
 
-Mysql workbench and sql files.
+The `thelia2_model.mwb` file contains the complete Thelia 2 database model.
 
-Thelia 2 use Propel ORM. If you want to see propel behavior configuration install [PropelUtility](https://github.com/mazenovi/PropelUtility)
+If you want to generate the Propel `schema.xml` file, please install MySQL Workbench PropelUtility plugin from the PropelUtility folder, which contains a fixed version of [PropelUtility](https://github.com/mazenovi/PropelUtility). You can then use the Export tab to generate the `schema.xml` file. 
 
-Thelia allows you to generate your sql files, insert it install fixtures and create an admin for you.
+Please note that you **have to** add the following lines in the generated file, just after the `<database defaultIdMethod="native" name="thelia">` line :
 
-First, edit your ```local/config/schema.xml``` file.
+```xml
+  <vendor type="mysql">
+    <parameter name="Engine" value="InnoDB"/>
+    <parameter name="Charset" value="utf8"/>
+  </vendor>
+```
 
-Then be sure that your already have a configured database, if not, run:
+From this `schema.xml` file, Thelia will generate the database schema SQL initialization files, and the Propel ORM classes and tools
+
+## Initializing database and classes
+
+Be sure that your already have a configured database, if not, run:
 ```bash
 $ php Thelia thelia:install
 ```
 
-After, your may use the reset_install script that will do the work for you.
-If you work on Linux/Mac OS:
+If the database access is configured, your can use the `reset_install` script that will do all the work for you, and generate data using the Thelia faker.
+
+If you're using Linux or Mac OS:
 ```bash
 $ ./reset_install.sh
 ```
-If you work on Windows:
+If you're using Windows:
 ```batch
 C:\path-to-thelia> reset_install.bat
 ```
 
-You finally have an updated database, with a new admin: thelia2 with the password: thelia2
+Please note thant all your database content will be erased and replaced with test fake data.
+
